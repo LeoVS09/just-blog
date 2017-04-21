@@ -1,0 +1,20 @@
+@import "config.styl"
+body
+  footer
+    height 15vh
+    border-top 1px solid footer-color
+    display flex
+    color darken(footer-color, 20%)
+    p, a
+      font-size 0.9em
+      margin auto
+    a
+      color darken(footer-color, 20%)
+      text-decoration none
+      &:visited
+        color darken(footer-color, 20%)
+      &:hover
+        color additional-color
+      img
+        height 0.7em
+        margin auto 1vmin

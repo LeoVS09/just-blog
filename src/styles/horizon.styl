@@ -1,0 +1,45 @@
+@import 'config.styl'
+
+.horizon
+  width 100%
+  margin 20vh 0
+  height 60vh
+
+  position relative
+  .image-wrapper
+    display flex
+    flex-direction column
+    justify-content center
+    &::after
+      background-color rgba(primary, 0.5)
+      transition-property background-color
+      transition-duration hover-link-animation-duration
+    img
+      min-height 500px
+      position absolute
+      width 100%
+      transition-property transform
+      transition-duration hover-link-animation-duration
+  .text
+    display flex
+    flex-direction column
+    width 100%
+    height 100%
+    justify-content space-between
+    h1
+      top -1em
+      margin-left 15vw
+    p
+      width 80vw
+      max-width 800px
+      margin auto auto 0
+      background-color primary
+      padding 1vh 5vw
+      position relative
+      bottom -5vh
+  &:hover
+    .image-wrapper
+      &::after
+        background-color rgba(primary, 0.2)
+      img
+        transform scale(1.1)

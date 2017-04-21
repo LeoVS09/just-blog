@@ -3,4 +3,64 @@ html
     head
         title JUST_CODE
     body
-        h1 It's just blog site
+
+        header
+            h1 JUST_CODE
+
+        main
+            include papers
+            -
+                var articles = [
+                    {
+                        image: require('./images/mountains.jpeg'),
+                        header: 'It\'s first article',
+                        text: 'Are own design entire former get should. Advantages boisterous day excellence boy. Out between our two waiting wishing. Pursuit he he garrets greater towards amiable so placing. Nothing off how norland delight. Abode shy shade she hours forth its use. Up whole of fancy ye quiet do. Justice fortune no to is if winding morning forming. '
+                    },
+                    {
+                        image: require('./images/auto.jpeg'),
+                        header: 'It\'s second article',
+                        text: 'Inhabit hearing perhaps on ye do no. It maids decay as there he. Smallest on suitable disposed do although blessing he juvenile in. Society or if excited forbade. Here name off yet she long sold easy whom. Differed oh cheerful procured pleasure securing suitable in. Hold rich on an he oh fine. Chapter ability shyness article welcome be do on service. '
+                    },
+                    {
+                        image: require('./images/lake.jpeg'),
+                        header: 'It\'s third article',
+                        text: 'Ten the hastened steepest feelings pleasant few surprise property. An brother he do colonel against minutes uncivil. Can how elinor warmly mrs basket marked. Led raising expense yet demesne weather musical. Me mr what park next busy ever. Elinor her his secure far twenty eat object. Late any far saw size want man. Which way you wrong add shall one. As guest right of he scale these. Horses nearer oh elinor of denote.'
+                    },
+                    {
+                        image: require('./images/birds.jpeg'),
+                        header: 'It\'s fourth article',
+                        text: 'Extremity sweetness difficult behaviour he of. On disposal of as landlord horrible. Afraid at highly months do things on at. Situation recommend objection do intention so questions. As greatly removed calling pleased improve an. Last ask him cold feel met spot shy want. Children me laughing we prospect answered followed. At it went is song that held help face.'
+                    },
+                    {
+                        image: require('./images/sunset.jpeg'),
+                        header: 'It\'s last article',
+                        text: 'Its sometimes her behaviour are contented. Do listening am eagerness oh objection collected. Together gay feelings continue juvenile had off one. Unknown may service subject her letters one bed. Child years noise ye in forty. Loud in this in both hold. My entrance me is disposal bachelor remember relation. '
+                    },
+                    {
+                        image: require('./images/steam.jpeg'),
+                        header: 'It\'s haha lol article',
+                        text: 'Speedily say has suitable disposal add boy. On forth doubt miles of child. Exercise joy man children rejoiced. Yet uncommonly his ten who diminution astonished. Demesne new manners savings staying had. Under folly balls death own point now men. Match way these she avoid see death. She whose drift their fat off.'
+                    },
+                    {
+                        image: require('./images/tree.jpeg'),
+                        header: 'It\'s this realy last article',
+                        text: 'Attention he extremity unwilling on otherwise. Conviction up partiality as delightful is discovered. Yet jennings resolved disposed exertion you off. Left did fond drew fat head poor. So if he into shot half many long. China fully him every fat was world grave. '
+                    },
+                    {
+                        image: require('./images/corn.jpeg'),
+                        header: 'It\'s fist article',
+                        text: 'His exquisite sincerity education shameless ten earnestly breakfast add. So we me unknown as improve hastily sitting forming. Especially favourable compliment but thoroughly unreserved saw she themselves. Sufficient impossible him may ten insensible put continuing. Oppose exeter income simple few joy cousin but twenty. Scale began quiet up short wrong in in. Sportsmen shy forfeited engrossed may can. '
+                    }
+                ]
+
+            .papers
+                +diagonal-papers(articles[0],articles[1])
+                +paper(articles[2]).horizon
+                //+paper(articles[3]).center-right
+                //+paper(articles[4])
+                //+slider-papers(articles.slice(5, -1))
+                //+paper(articles[articles.length - 1]).center-left
+
+        footer
+            // TODO: add parallax footer scroll (like: https://www.linealight.com/en-gb)
+            p © 2017 Goncharov Vladislav. All rights reserved.

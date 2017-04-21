@@ -1,0 +1,21 @@
+
+mixin paper(data)
+    .paper(class=attributes.class)
+        .image-wrapper
+            img(src=data.image)
+        .text
+            h1
+                span= data.header
+            p= data.text
+
+mixin diagonal-papers(first,second)
+    .diagonal-papers
+        +paper(first).top
+        +paper(second).bottom
+
+mixin slider-papers(articles)
+    .slider-papers
+        each article in articles
+            +paper(article)
+
+

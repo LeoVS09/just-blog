@@ -1,0 +1,7 @@
+{
+  "port": 3000,
+  "build": "build",
+  "public": "assets",
+  "source": "src",
+  "favicon": "favicon.ico"
+}

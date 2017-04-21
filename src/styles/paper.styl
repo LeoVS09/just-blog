@@ -1,0 +1,52 @@
+@import 'config.styl'
+
+.paper
+  color textColor
+  .image-wrapper
+    position relative
+    overflow hidden
+    height 100%
+    width 100%
+    &::after
+      content ""
+      position absolute
+      top 0
+      right 0
+      bottom 0
+      left 0
+  .text
+    position absolute
+    top 0
+    z-index 2
+    h1
+      font-family 'Roboto Mono'
+      font-size 3em
+      display inline
+      white-space pre-wrap
+      width auto
+      margin 0 auto
+      position relative
+      &:after
+        content ""
+        position absolute
+        top 0
+        bottom 0
+        left 0
+        background-color darken(primary, 30%)
+        display inline-block
+        height 0.9em
+        margin auto 0
+        width 0
+        transition-property width
+        transition-duration hover-link-animation-duration
+      span
+        position relative
+        z-index 3
+    p
+      font-size 1em
+      font-family 'Roboto'
+      font-weight bold
+  &:hover
+    .text
+      h1:after
+        width 100%

@@ -1,13 +1,15 @@
 var path = require('path'),
     webpack = require('webpack'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
+    HtmlWebpackPugPlugin = require('html-webpack-pug-plugin'),
     poststylus = require('poststylus'),
-    ExtractTextPlugin = require("extract-text-webpack-plugin");
+    ExtractTextPlugin = require("extract-text-webpack-plugin"),
+    CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
     output: {
-        filename: "bundle-[hash].js",
+        filename: "assets/js/bundle-[hash].js",
         path: path.resolve(__dirname, "build")
     },
     module: {
@@ -29,13 +31,14 @@ module.exports = {
                     use: [
                         'css-loader?importLoaders=1',
                         'stylus-loader'
-                    ]
+                    ],
+                    publicPath: '../../'
                 })
             },
             {
                 test: /\.(gif|png|svg|jpe?g)$/i,
                 loaders: [
-                    'file-loader?name=./images/[hash].[ext]',
+                    'file-loader?name=assets/images/[hash].[ext]',
                     {
                         loader: 'image-webpack-loader',
                         query: {
@@ -56,8 +59,21 @@ module.exports = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({template: './src/index.pug'}), //inject: "head"
-        new ExtractTextPlugin('styles-[contenthash].css'),
+        // new CleanWebpackPlugin(['build']),
+        new HtmlWebpackPlugin({
+            template: './src/index.pug',
+            favicon: './src/favicon.ico',
+            // filename: 'index.pug',
+            // filetype: 'pug'
+        }), //inject: "head"
+        // new HtmlWebpackPlugin({
+        //     template: './src/lol.pug',
+        //     favicon: './src/favicon.ico',
+        //     filename: 'lol.pug',
+        //     filetype: 'pug'
+        // }), //inject: "head"
+        // new HtmlWebpackPugPlugin(),
+        new ExtractTextPlugin('assets/stylesheet/styles-[contenthash].css'),
         new webpack.LoaderOptionsPlugin({
             options: {
                 stylus: {

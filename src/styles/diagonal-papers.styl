@@ -1,0 +1,86 @@
+@import 'config.styl'
+
+
+
+.diagonal-papers
+  display flex
+  width 90vw
+  justify-content space-between
+  margin 0 auto
+  .paper
+    position relative
+    height 60vh
+    width 38vw
+    margin 0
+    transition-property width
+    transition-duration showed-papers-animation-duration
+    .image-wrapper
+      img
+        height 100%
+    .text
+      display flex
+      flex-direction column
+      height 100%
+      justify-content center
+      margin 0
+
+      h1
+        text-align right
+        transition-duration showed-papers-animation-duration
+
+      p
+        position relative
+        transition-duration showed-papers-animation-duration
+        margin-top 0
+        width 30vw
+
+    &.top
+      .image-wrapper::after
+        background linear-gradient(to right, rgba(primary, 0.5), primary)
+      .text
+        right 0
+        h1
+          right 0
+          transition-property right
+          &:after
+            left 0
+        p
+          right 0
+          transition-property right
+
+    &.bottom
+      margin-top 45vh
+      .image-wrapper
+        &::after
+          background linear-gradient(to left, rgba(primary, 0.5), primary)
+        img
+          float right
+      .text
+        float left
+        left 0
+        h1
+          text-align left
+          left 0
+          transition-property left
+          &:after
+            right 0
+            left auto
+        p
+          left 0
+          transition-property left
+
+    &.showed
+      width 44vw
+      &.top
+        .text
+          h1
+            right -10vw
+          p
+            right -40vw
+      &.bottom
+        .text
+          h1
+            left -10vw
+          p
+            left -40vw
+
