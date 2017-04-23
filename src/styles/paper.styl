@@ -2,6 +2,7 @@
 
 .paper
   color textColor
+  position relative
   .image-wrapper
     position relative
     overflow hidden
@@ -43,10 +44,13 @@
         position relative
         z-index 3
     p
-      font-size 1em
+      font-size 1.2em
       font-family 'Roboto'
-      font-weight bold
+      font-weight lighter
+      line-height 1.7
   &:hover
     .text
       h1:after
         width 100%
+      p
+        color lighten(textColor,5%)

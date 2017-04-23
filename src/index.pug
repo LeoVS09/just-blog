@@ -3,7 +3,7 @@ html
     head
         title JUST_CODE
     body
-
+        // TODO: add typing effect
         header
             h1 JUST_CODE
 
@@ -56,10 +56,9 @@ html
             .papers
                 +diagonal-papers(articles[0],articles[1])
                 +paper(articles[2]).horizon
-                //+paper(articles[3]).center-right
-                //+paper(articles[4])
-                //+slider-papers(articles.slice(5, -1))
-                //+paper(articles[articles.length - 1]).center-left
+                +paper(articles[3]).center.right
+                +slider-papers(articles.slice(4, -1))
+                //+paper(articles[articles.length - 1]).center.left
 
         footer
             // TODO: add parallax footer scroll (like: https://www.linealight.com/en-gb)
