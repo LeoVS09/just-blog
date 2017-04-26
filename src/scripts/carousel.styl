@@ -1,5 +1,9 @@
+
+arrowSize = 50px
+// TODO: style for arrows
 .carousel
   overflow hidden
+  position relative
   .carousel-track
     position relative
     transition-property transform
@@ -10,3 +14,15 @@
       height 100%
       &.carousel-slide-active
         z-index 10
+  .arrow
+    position absolute
+    height arrowSize
+    width arrowSize
+    z-index 5
+    top 49%
+    &.left
+      background-color red
+      left 1vw
+    &.right
+      background-color blue
+      right 1vw

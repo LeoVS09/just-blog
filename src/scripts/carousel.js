@@ -7,16 +7,22 @@ class Carousel{
     carouselTrackClass = 'carousel-track'
     carouselSlideClass = 'carousel-slide'
     carouselSlideActiveClass = 'carousel-slide-active'
+    carouselArrowClass = 'arrow'
+    carouselLeftArrowClass = 'left'
+    carouselRightArrowClass = 'right'
     transitionDuration = 1000
-    transitionDelay = 2000
+    // TODO: fix error with arrow show on first start
+    transitionDelay = 10000
 
-    constructor({container, endless = true}){
+    constructor({container, endless = true, arrows = true}){
         if(!container) throw new Error('Carousel need container')
         this.container = container
         this.endless = endless
         this.injectNodes()
         this.currentOffset = 0
-        this.startStep()
+        this.play()
+        this.container.addEventListener('mouseover',() => this.mouseover())
+        this.container.addEventListener('mouseout',() => this.mouseout())
     }
 
     injectNodes(){
@@ -38,8 +44,41 @@ class Carousel{
         this.slides = slides
         let trackWidth = this.calcTrackWidth()
         track.style.width =  trackWidth + 'px';
+        let {left, right} = this.createArrows()
+        this.container.insertBefore(left, this.container.firstChild)
+        this.container.appendChild(right)
     }
 
+    
+    createArrows(){
+        let left = document.createElement('div')
+        let right = document.createElement('div')
+        left.classList.add(this.carouselArrowClass)
+        right.classList.add(this.carouselArrowClass)
+        left.classList.add(this.carouselLeftArrowClass)
+        right.classList.add(this.carouselRightArrowClass)
+        let leftClick = () => {
+            this.prev()
+            left.removeEventListener('click',leftClick)
+            setTimeout(() => left.addEventListener('click',leftClick),this.transitionDuration)
+        }
+        left.addEventListener('click', leftClick)
+        let rightClick = () => {
+            this.next()
+            right.removeEventListener('click',rightClick)
+            setTimeout(() => right.addEventListener('click',rightClick),this.transitionDuration)
+        }
+        right.addEventListener('click', rightClick)
+        return {left, right}
+    }
+
+    mouseover(){
+        this.stop()
+    }
+
+    mouseout(){
+        this.play()
+    }
     calcTrackWidth() {
         // if(endless)
         //     return initial*(length+1)
@@ -47,22 +86,27 @@ class Carousel{
         return this.width*this.slides.length
     }
 
-    startStep(){
+    play(){
+        this.stop()
         this.stepTimer = this.autoStep()
     }
 
     autoStep = () => setInterval(() => {
-        this.makeStep()
-        let direction = 1
-        setTimeout(() => {
-            this.relocateSlide(direction === 1)
-            this.currentSlide -= direction
-            this.returnTrack()
-        },this.transitionDuration)
-        if(this.currentSlide == this.slides.length-1)
-            clearInterval(this.stepTimer)
+        this.next()
+        if(this.needStop())
+            this.stop()
     },this.transitionDelay)
 
+    needStop(){
+        if(this.endless)
+            return false
+        else
+            return this.currentSlide == this.slides.length - 1
+    }
+
+    stop(){
+        clearInterval(this.stepTimer)
+    }
     wrapToSlide(element){
         let slide = document.createElement('div')
         slide.classList.add(this.carouselSlideClass)
@@ -76,12 +120,16 @@ class Carousel{
             let first = this.slides.shift()
             this.track.removeChild(first)
             this.track.appendChild(first)
+            this.currentSlide--
             this.slides.push(first)
+            this.returnTrack()
         } else {
             let last = this.slides.pop()
             this.track.removeChild(last)
             this.track.insertBefore(last, this.track.firstChild)
+            this.currentSlide++
             this.slides.unshift(last)
+            this.returnTrack(1)
         }
     }
 
@@ -90,23 +138,31 @@ class Carousel{
         this.currentOffset = this.currentSlide*this.width
         this.track.style.transform = 'translateX(-' + this.currentOffset + 'px)'
     }
-
-    makeStep(direction = 1) {
-        this.track.style.transitionDuration = this.transitionDuration + 'ms'
-        this.slides[this.currentSlide].classList.remove(this.carouselSlideActiveClass)
-        this.currentOffset += direction*this.width;
-        this.track.style.transform = 'translateX(-' + this.currentOffset + 'px)';
-        this.currentSlide += direction
-        this.slides[this.currentSlide].classList.add(this.carouselSlideActiveClass)
+    next(){
+        this.moveTo(this.currentSlide + 1)
     }
-
-    goTo(target) {
-        this.track.style.transitionDuration = transitionDuration + 'ms'
+    prev(){
+        this.moveTo(this.currentSlide - 1)
+    }
+    moveTo(target) {
         this.slides[this.currentSlide].classList.remove(this.carouselSlideActiveClass)
-        this.currentOffset = this.width*target;
-        this.track.style.transform = 'translateX(-' + this.currentOffset + 'px)';
-        this.currentSlide = target
-        this.slides[this.currentSlide].classList.add(this.carouselSlideActiveClass)
+        if(this.endless)
+            if(target == this.slides.length) {
+                this.relocateSlide()
+                target--
+            }
+            else if(target == -1) {
+                this.relocateSlide(false)
+                target++
+            }
+            setTimeout( () => {
+                this.track.style.transitionDuration = this.transitionDuration + 'ms'
+
+                this.currentOffset = this.width * target;
+                this.track.style.transform = 'translateX(-' + this.currentOffset + 'px)';
+                this.currentSlide = target
+                this.slides[this.currentSlide].classList.add(this.carouselSlideActiveClass)
+            },20)
     }
 }
 
