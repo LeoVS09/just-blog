@@ -11,5 +11,7 @@ setTimeout( () =>
 
 
 let carousel = Carousel({
-    container: document.querySelector('.slider-papers')
+    container: document.querySelector('.slider-papers'),
+    style: 'cards',
+    height: 600
 })
