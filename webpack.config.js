@@ -7,7 +7,7 @@ var path = require('path'),
     CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: ['babel-polyfill','./src/index.js'],
     output: {
         filename: "assets/js/bundle-[hash].js",
         path: path.resolve(__dirname, "build")

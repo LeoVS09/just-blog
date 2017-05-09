@@ -26,21 +26,24 @@ arrowSize = 50px
     &.right
       background-color blue
       right 1vw
-
-.cards-carousel
-  @extend .carousel
-  overflow visible
-  .cards-carousel-slide
-    display none
-    position absolute
-    top 0
-    left 0
-    transition-property transform
-    &.cards-carousel-slide-prev, &.cards-carousel-slide-next, &.cards-carousel-slide-active
-      display block
-    &.cards-carousel-slide-prev
-      z-index 1
-    &.cards-carousel-slide-next
-      z-index 2
-    &.cards-carousel-slide-active
-      z-index: 3
+.cards-carousel-wrapper
+  overflow hidden
+  .cards-carousel
+    @extend .carousel
+    overflow visible
+    .cards-carousel-slide
+      display none
+      position absolute
+      top 0
+      left 0
+      transition-property transform
+      &.cards-carousel-slide-prev, &.cards-carousel-slide-next, &.cards-carousel-slide-active
+        display block
+      &.cards-carousel-slide-prev
+        z-index 1
+        &.cards-carousel-slide-prev-before
+          z-index 2
+      &.cards-carousel-slide-next
+        z-index 3
+      &.cards-carousel-slide-active
+        z-index: 4
