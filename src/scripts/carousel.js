@@ -205,6 +205,13 @@ class Cards extends Carousel{
         this.carouselArrowClass = 'arrow'
         this.carouselLeftArrowClass = 'left'
         this.carouselRightArrowClass = 'right'
+
+        this.moveToEdgeFromBack = 'moving-to-edge-from-back'
+        this.moveToMiddle = 'moving-to-middle'
+        this.moveToEdgeFromForward = 'moving-to-edge-from-forward'
+        this.moveToBack = 'moving-to-back'
+        this.nowOnMiddle = 'now-on-middle'
+
     }
 
     constructor(options){
@@ -241,30 +248,47 @@ class Cards extends Carousel{
         return slide
     }
 
-    translate3d(x,y,z){
+    translate3d(x = 0,y = 0,z = 0){
         return `perspective(${this.perspective}px) translate3d(${x}px,${y}px,${z}px)`
     }
 
     // TODO: add dark gradient for not active slides
     next = async () => {
+        this.slides[this.slideNumber(-1)].classList.remove(this.moveToBack)
+        this.slides[this.slideNumber()].classList.remove(this.moveToMiddle)
+        this.slides[this.slideNumber()].classList.remove(this.nowOnMiddle)
+        this.slides[this.slideNumber(1)].classList.remove(this.moveToBack)
         this.slides[this.slideNumber(-1)].style.transform = this.translate3d(0,0,-this.zOffset)
         this.slides[this.slideNumber()].style.transform = this.translate3d(-(this.width + this.xOffset/2)/2,0,-this.zOffset/2)
+        this.slides[this.slideNumber()].style.animationDuration = this.transitionDuration + 'ms'
+        this.slides[this.slideNumber()].classList.add(this.moveToEdgeFromForward)
         this.slides[this.slideNumber(1)].style.transform = this.translate3d((this.width + this.xOffset/2)/2,0,-this.zOffset/2)
+        this.slides[this.slideNumber(1)].style.animationDuration = this.transitionDuration + 'ms'
+        this.slides[this.slideNumber(1)].classList.add(this.moveToEdgeFromBack)
         await timeout(this.transitionDuration, () => {
             this.slides[this.slideNumber()].classList.remove(this.carouselSlideActiveClass)
+            this.slides[this.slideNumber()].classList.remove(this.moveToEdgeFromForward)
+            this.slides[this.slideNumber(1)].classList.remove(this.moveToEdgeFromBack)
             this.clearNextSlide()
             this.currentSlide = this.slideNumber(1)
             this.prevSlide(this.slides[this.slideNumber(-1)])
             this.slides[this.slideNumber(-1)].classList.add(this.carouselSlidePrevBeforeClass)
+            this.slides[this.slideNumber(-1)].classList.add(this.moveToBack)
+            this.slides[this.slideNumber(-1)].style.animationDuration = this.transitionDuration/2 + 'ms'
             this.slides[this.slideNumber()].classList.add(this.carouselSlideActiveClass)
+            this.slides[this.slideNumber()].classList.add(this.moveToMiddle)
+            this.slides[this.slideNumber()].style.animationDuration = this.transitionDuration/2 + 'ms'
             this.slides[this.slideNumber(-1)].style.transform = this.translate3d(-this.xOffset,0,-this.zOffset)
             this.slides[this.slideNumber()].style.transform = this.translate3d(0,0,0)
         })
         await timeout(this.transitionDuration/2, () => {
+            this.slides[this.slideNumber()].classList.add(this.nowOnMiddle)
             this.clearPrevSlide(this.slides[this.slideNumber(-2)])
             this.slides[this.slideNumber(-1)].classList.remove(this.carouselSlidePrevBeforeClass)
             this.nextSlide(this.slides[this.slideNumber(1)])
             this.slides[this.slideNumber(1)].style.transform = this.translate3d(this.xOffset, 0, -this.zOffset)
+            this.slides[this.slideNumber(1)].classList.add(this.moveToBack)
+
         })
     }
 
@@ -291,12 +315,16 @@ class Cards extends Carousel{
     }
 
     setSlidesPositions(){
-        this.slides[this.currentSlide - 1].style.transform = this.translate3d(-this.xOffset,0,-this.zOffset)
-        this.slides[this.currentSlide - 1].classList.add(this.carouselSlidePrevClass)
-        this.slides[this.currentSlide].style.transform = this.translate3d(0,0,0)
-        this.slides[this.currentSlide].classList.add(this.carouselSlideActiveClass)
-        this.slides[this.currentSlide + 1].style.transform = this.translate3d(this.xOffset,0,-this.zOffset)
-        this.nextSlide(this.slides[this.currentSlide + 1])
+        this.slides[this.slideNumber(-1)].style.transform = this.translate3d(-this.xOffset,0,-this.zOffset)
+        this.slides[this.slideNumber(-1)].classList.add(this.carouselSlidePrevClass)
+        this.slides[this.slideNumber(-1)].classList.add(this.moveToBack)
+        this.slides[this.slideNumber(1)].classList.add(this.moveToBack)
+        this.slides[this.slideNumber()].style.transform = this.translate3d(0,0,0)
+        this.slides[this.slideNumber()].classList.add(this.carouselSlideActiveClass)
+        this.slides[this.slideNumber()].classList.add(this.moveToMiddle)
+        this.slides[this.slideNumber()].classList.add(this.nowOnMiddle)
+        this.slides[this.slideNumber(1)].style.transform = this.translate3d(this.xOffset,0,-this.zOffset)
+        this.nextSlide(this.slides[this.slideNumber(1)])
    }
 
     nextSlide(slide){

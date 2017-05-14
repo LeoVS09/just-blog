@@ -1,5 +1,19 @@
 
 arrowSize = 50px
+
+@keyframes slide-moving-to-edge
+  0%
+    box-shadow 0 0 10px 0 rgba(black,0.9)
+  100%
+    box-shadow 0 0 20px 0 rgba(black,0.9)
+
+@keyframes slide-moving-to-middle
+  0%
+    box-shadow 0 0 20px 0 rgba(black,0.9)
+  100%
+    box-shadow 0 0 30px 0 rgba(black,0.9)
+
+
 // TODO: style for arrows
 .carousel
   overflow hidden
@@ -47,3 +61,12 @@ arrowSize = 50px
         z-index 3
       &.cards-carousel-slide-active
         z-index: 4
+
+      &.moving-to-edge-from-back
+        animation slide-moving-to-edge forwards
+      &.moving-to-middle
+        animation slide-moving-to-middle forwards
+      &.moving-to-edge-from-forward
+        animation slide-moving-to-middle reverse forwards
+      &.moving-to-back
+        animation slide-moving-to-edge reverse forwards

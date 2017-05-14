@@ -5,13 +5,37 @@
   .paper
     .image-wrapper
       height 600px
+      img
+        width 100%
+
   .text
     width 100%
     height 100%
+    opacity 0
+    transition-property opacity
+    transition-duration 500ms
+    h1
+      transform translateY(0)
+      transition-property transform
+      transition-duration 500ms
+      display inline-block
+      margin-left 5vw
     p
       position absolute
       width 40%
       bottom 3%
       right 5%
-      background-color primary
+      background-color lighten(primary,3%)
+      box-shadow 0 0 5px black
       padding 2vh 1vw
+      transform translateY(0)
+      transition-property transform
+      transition-duration 500ms
+  .now-on-middle
+    .paper
+      .text
+        opacity 1
+        h1
+          transform translateY(-1em)
+        p
+          transform translateY(5em)
