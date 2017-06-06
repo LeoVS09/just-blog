@@ -24,15 +24,15 @@ arrowSize = 50px
     display flex
     .carousel-slide
       position relative
-      z-index 9
+      z-index 109
       height 100%
       &.carousel-slide-active
-        z-index 10
+        z-index 110
   .arrow
     position absolute
     height arrowSize
     width arrowSize
-    z-index 5
+    z-index 105
     top 49%
     &.left
       background-color red
@@ -54,17 +54,17 @@ arrowSize = 50px
       &.cards-carousel-slide-prev, &.cards-carousel-slide-next, &.cards-carousel-slide-active
         display block
       &.cards-carousel-slide-prev
-        z-index 1
+        z-index 101
         &.cards-carousel-slide-prev-before
-          z-index 2
+          z-index 102
       &.cards-carousel-slide-middle-before
-        z-index 4
+        z-index 104
       &.cards-carousel-slide-next-after
-        z-index 5
+        z-index 105
       &.cards-carousel-slide-next
-        z-index 3
+        z-index 103
       &.cards-carousel-slide-active
-        z-index: 6
+        z-index: 106
 
       &.moving-to-edge-from-back
         animation slide-moving-to-edge forwards

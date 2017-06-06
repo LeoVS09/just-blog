@@ -54,11 +54,11 @@ html
                 ]
 
             .papers
-                //+diagonal-papers(articles[0],articles[1])
-                //+paper(articles[2]).horizon
-                //+paper(articles[3]).center.right
+                +diagonal-papers(articles[0],articles[1])
+                +paper(articles[2]).horizon
+                +paper(articles[3]).center.left
                 +slider-papers(articles)
-                //+paper(articles[articles.length - 1]).center.left
+                +paper(articles[articles.length - 1]).center.right
 
         footer
             // TODO: add parallax footer scroll (like: https://www.linealight.com/en-gb)

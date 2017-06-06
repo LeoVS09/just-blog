@@ -1,20 +1,29 @@
 @import "config.styl"
 body
   footer
-    height 15vh
-    border-top 1px solid footer-color
+    height 40vh
     display flex
-    color darken(footer-color, 20%)
+    position fixed
+    color footer-text-color
+    background footer-color
+    z-index 5
+    bottom 0
+    left 0
+    right 0
+    visibility visible
     p, a
-      font-size 0.9em
+      font-size 1.5em
       margin auto
+      font-family "Montserrat"
     a
-      color darken(footer-color, 20%)
+      //color darken(footer-color, 20%)
       text-decoration none
       &:visited
-        color darken(footer-color, 20%)
+        //color darken(footer-color, 20%)
       &:hover
-        color additional-color
+        //color additional-color
       img
         height 0.7em
         margin auto 1vmin
+    p
+      border-bottom 2px solid footer-text-color

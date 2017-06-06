@@ -1,5 +1,14 @@
 @import 'config.styl'
 
+text-background(color, transitionDuratation = 0.5s)
+  background linear-gradient(to right, rgba(255,255,255,0) 50%, color 50%)
+  background-size 200%
+  background-position 0 0
+  display inline
+  transition transitionDuratation ease-in-out
+text-background-visible()
+  background-position -100% 0
+
 .paper
   color textColor
   position relative
@@ -48,9 +57,12 @@
       font-family 'Roboto'
       font-weight lighter
       line-height 1.7
+      //text-background(lighten(primary,5%))
+
   &:hover
     .text
       h1:after
         width 100%
       p
         color lighten(textColor,5%)
+        //text-background-visible()

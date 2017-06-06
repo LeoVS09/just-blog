@@ -1,13 +1,20 @@
 
+// TODO: refactor using text-background stylus mixin
+mixin headerPaper(text)
+    h1
+        span=text
+// TODO: add text-background stylus mixina
+mixin description(text)
+    p=text
+
 // TODO: add glitch effect to images
 mixin paper(data)
-    .paper(class=attributes.class)
+    article.paper(class=attributes.class)
         .image-wrapper
             img(src=data.image)
         .text
-            h1
-                span= data.header
-            p= data.text
+            +headerPaper(data.header)
+            +description(data.text)
 
 mixin diagonal-papers(first,second)
     .diagonal-papers
