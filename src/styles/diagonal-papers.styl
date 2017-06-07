@@ -28,7 +28,7 @@
         text-align right
         transition-duration showed-papers-animation-duration
 
-      p
+      .paragraph
         position relative
         transition-duration showed-papers-animation-duration
         margin-top 0
@@ -44,7 +44,7 @@
           transition-property right
           &::after
             left 0
-        p
+        .paragraph
           right 0
           transition-property right
 
@@ -65,7 +65,7 @@
           &:after
             right 0
             left auto
-        p
+        .paragraph
           left 0
           transition-property left
 
@@ -75,11 +75,11 @@
         .text
           h1
             right -10vw
-          p
+          .paragraph
             right -40vw
       &.bottom
         .text
           h1
             left -10vw
-          p
+          .paragraph
             left -40vw

@@ -1,5 +1,7 @@
 @import 'config.styl'
 
+highlightColor = darken(primary, 80%)
+
 text-background(color, transitionDuratation = 0.5s)
   background linear-gradient(to right, rgba(255,255,255,0) 50%, color 50%)
   background-size 200%
@@ -39,12 +41,11 @@ text-background-visible()
       &:after
         content ""
         position absolute
-        top 0
-        bottom 0
+        top 35%
         left 0
-        background-color darken(primary, 30%)
+        background-color highlightColor
         display inline-block
-        height 0.9em
+        height 40%
         margin auto 0
         width 0
         transition-property width
@@ -52,17 +53,28 @@ text-background-visible()
       span
         position relative
         z-index 3
-    p
+    .paragraph
       font-size 1.2em
       font-family 'Roboto'
       font-weight lighter
       line-height 1.7
       //text-background(lighten(primary,5%))
+      p
+        display inline
+        background-image: linear-gradient(to right, transparent 50%, highlightColor 50%);
+        background-position: 0 0;
+        background-size: 200% auto;
+        transition: background-position 1s;
+        padding 0.1em
+        text-wrap pre-wrap
+        white-space pre-wrap
+
 
   &:hover
     .text
       h1:after
         width 100%
-      p
+      .paragraph
         color lighten(textColor,5%)
-        //text-background-visible()
+        p
+          background-position: -100% 0;
